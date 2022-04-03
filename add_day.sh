@@ -11,7 +11,7 @@ binary=./src/bin/"${day}".rs
 
 if ! [[ -f "$binary" ]] ; then
  cat <<< "fn main() -> anyhow::Result<()> {
-  Ok(())
+    Ok(())
 }" >> "$binary"
 fi
 
