@@ -2,6 +2,9 @@ use std::str::FromStr;
 
 use anyhow::anyhow;
 
+// Find proper solution below.
+// Part 1 was naively implemented and over-engineered. Leaving as a reminder to self to think about
+// the problem deeply before getting carried away!
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 struct Lanternfish(u8);
 
@@ -66,6 +69,42 @@ impl FromStr for School {
     }
 }
 
+// Non-naive implementation that represents the school as 9 buckets with each bucket containing
+// the number of Lanternfish scheduled to reproduce after x days.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct NonNaiveSchool {
+    school: [u64; 9],
+}
+
+impl NonNaiveSchool {
+    fn progress_day(&mut self) {
+        self.school.rotate_left(1);
+        self.school[6] += self.school[8];
+    }
+
+    pub fn progress(&mut self, days: usize) -> u64 {
+        for _ in 0..days {
+            self.progress_day();
+        }
+
+        self.school.iter().sum()
+    }
+}
+
+impl FromStr for NonNaiveSchool {
+    type Err = anyhow::Error;
+
+    fn from_str(s: &str) -> anyhow::Result<Self> {
+        let mut school: [u64; 9] = [0; 9];
+        for c in s.split(',') {
+            let days_until_reprod: usize = c.parse()?;
+            school[days_until_reprod] += 1;
+        }
+
+        Ok(Self { school })
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -89,6 +128,22 @@ mod tests {
     #[test]
     fn progress_by() {
         let mut school: School = "3,4,3,1,2".parse().unwrap();
+        let size = school.progress(80);
+
+        assert_eq!(size, 5934);
+    }
+
+    #[test]
+    fn can_parse_non_naive_school_fromstr() {
+        let school = "1,2,3,4,5,5";
+        let expected = [0, 1, 1, 1, 1, 2, 0, 0, 0];
+
+        assert_eq!(school.parse::<NonNaiveSchool>().unwrap().school, expected);
+    }
+
+    #[test]
+    fn progress_by_non_naive() {
+        let mut school: NonNaiveSchool = "3,4,3,1,2".parse().unwrap();
         let size = school.progress(80);
 
         assert_eq!(size, 5934);
