@@ -11,5 +11,8 @@ fn main() -> anyhow::Result<()> {
 
     let part_1 = crabs.find_best_position().unwrap();
     println!("Part 1: {}", part_1);
+
+    let part_2 = crabs.find_best_position_alt().unwrap();
+    println!("Part 2: {}", part_2);
     Ok(())
 }

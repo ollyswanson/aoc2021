@@ -22,9 +22,23 @@ impl Crabs {
         fuel_used
     }
 
+    fn move_crabs_to_position_alt(&self, pos: i32) -> i32 {
+        let mut fuel_used = 0;
+        for &crab_position in self.crabs.iter() {
+            fuel_used += triangular_number((pos - crab_position).abs());
+        }
+        fuel_used
+    }
+
     pub fn find_best_position(&self) -> Option<i32> {
         (self.min..=self.max)
             .map(|pos| self.move_crabs_to_position(pos))
+            .min()
+    }
+
+    pub fn find_best_position_alt(&self) -> Option<i32> {
+        (self.min..=self.max)
+            .map(|pos| self.move_crabs_to_position_alt(pos))
             .min()
     }
 }
@@ -45,6 +59,10 @@ impl FromStr for Crabs {
 
         Ok(Self { crabs, min, max })
     }
+}
+
+fn triangular_number(num: i32) -> i32 {
+    ((num + 1) * num) / 2
 }
 
 #[cfg(test)]
@@ -68,5 +86,12 @@ mod tests {
         let crabs: Crabs = "16,1,2,0,4,2,7,1,2,14".parse().unwrap();
 
         assert_eq!(crabs.find_best_position().unwrap(), 37);
+    }
+
+    #[test]
+    fn find_best_position_alt() {
+        let crabs: Crabs = "16,1,2,0,4,2,7,1,2,14".parse().unwrap();
+
+        assert_eq!(crabs.find_best_position_alt().unwrap(), 168);
     }
 }
