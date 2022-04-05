@@ -74,6 +74,16 @@ impl<const X: usize, const Y: usize> Octopuses<X, Y> {
 
         flashed
     }
+
+    pub fn find_all_flash(&mut self) -> u32 {
+        for i in 0.. {
+            if self.step() == 100 {
+                return i + 1;
+            }
+        }
+
+        unreachable!()
+    }
 }
 
 impl<const X: usize, const Y: usize> FromStr for Octopuses<X, Y> {
