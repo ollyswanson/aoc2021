@@ -29,17 +29,11 @@ impl Commands {
     }
 }
 
-impl<T> TryFrom<BufReader<T>> for Commands
-where
-    T: std::io::Read,
-{
-    type Error = anyhow::Error;
+impl FromStr for Commands {
+    type Err = anyhow::Error;
 
-    fn try_from(reader: BufReader<T>) -> anyhow::Result<Self> {
-        let commands: Vec<Command> = reader
-            .lines()
-            .map(|line| line.map_err(|e| anyhow!(e))?.parse::<Command>())
-            .collect::<anyhow::Result<_>>()?;
+    fn from_str(s: &str) -> anyhow::Result<Self> {
+        let commands: Vec<Command> = s.lines().map(str::parse).collect::<anyhow::Result<_>>()?;
 
         Ok(Commands(commands))
     }

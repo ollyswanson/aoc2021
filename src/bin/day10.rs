@@ -1,17 +1,10 @@
-use std::io;
-use std::io::Read;
-
-use nom::Parser;
-
 use aoc2021::day10::Lines;
 
 fn main() -> anyhow::Result<()> {
-    let mut input = String::new();
-    io::stdin().read_to_string(&mut input)?;
+    let input = include_str!("../../inputs/day10.txt");
     let lines: Lines = input
         .lines()
-        .into_iter()
-        .map(|line| line.parse())
+        .map(str::parse)
         .collect::<anyhow::Result<Vec<_>>>()?
         .into();
 

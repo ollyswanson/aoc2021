@@ -1,18 +1,12 @@
-use std::io::{self, BufRead, BufReader};
-
-use anyhow::{anyhow, Error};
+use anyhow::Error;
 use itertools::Itertools;
 
 fn main() -> Result<(), Error> {
-    let reader = BufReader::new(io::stdin());
-    let depths: Vec<i32> = reader
+    let input = include_str!("../../inputs/day01.txt");
+    let depths: Vec<i32> = input
         .lines()
-        .map(|line| {
-            line.map_err(|e| anyhow!(e))?
-                .parse::<i32>()
-                .map_err(|e| anyhow!(e))
-        })
-        .collect::<Result<_, Error>>()?;
+        .map(|line| line.parse())
+        .collect::<Result<_, _>>()?;
 
     let part1 = depths.iter().tuple_windows().filter(|(i, j)| j > i).count();
     println!("part 1: {}", part1);

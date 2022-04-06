@@ -1,14 +1,10 @@
-use std::io::{self, BufRead, BufReader};
-
-use anyhow::anyhow;
-
 use aoc2021::day03::Readings;
 
 fn main() -> anyhow::Result<()> {
-    let reader = BufReader::new(io::stdin());
-    let readings: Readings<12> = reader
+    let input = include_str!("../../inputs/day03.txt");
+    let readings: Readings<12> = input
         .lines()
-        .map(|line| line.map_err(|e| anyhow!(e))?.parse())
+        .map(str::parse)
         .collect::<anyhow::Result<Vec<_>>>()?
         .into();
 

@@ -1,11 +1,7 @@
-use std::io;
-use std::io::Read;
-
 use aoc2021::day04::Bingo;
 
 fn main() -> anyhow::Result<()> {
-    let mut input = String::new();
-    io::stdin().read_to_string(&mut input)?;
+    let input = include_str!("../../inputs/day04.txt");
 
     let mut bingo_game: Bingo<5, 5> = input.parse()?;
 

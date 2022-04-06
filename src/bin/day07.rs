@@ -1,11 +1,7 @@
-use std::io;
-use std::io::Read;
-
 use aoc2021::day07::Crabs;
 
 fn main() -> anyhow::Result<()> {
-    let mut input = String::new();
-    io::stdin().read_to_string(&mut input)?;
+    let input = include_str!("../../inputs/day07.txt");
 
     let crabs: Crabs = input.parse()?;
 
