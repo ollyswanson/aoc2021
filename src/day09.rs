@@ -141,8 +141,6 @@ impl<const X: usize, const Y: usize> FromStr for HeightMap<X, Y> {
 
 #[cfg(test)]
 mod tests {
-    use itertools::Itertools;
-
     use super::*;
 
     #[test]

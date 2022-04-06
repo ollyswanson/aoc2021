@@ -162,10 +162,10 @@ pub fn part_2(input: &str) -> usize {
 }
 
 mod tests {
-    use super::*;
-
     #[test]
     fn part_2() {
+        use super::Log;
+
         let log_str = "acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab |\
 cdfeb fcadb cdfeb cdbaf";
         let log: Log = Log::from(log_str);

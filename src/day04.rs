@@ -1,7 +1,7 @@
 use std::ops::Index;
 use std::str::FromStr;
 
-use anyhow::{anyhow, bail};
+use anyhow::bail;
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Board<const WIDTH: usize, const HEIGHT: usize> {
@@ -152,7 +152,6 @@ impl<const BOARD_WIDTH: usize, const BOARD_HEIGHT: usize> Bingo<BOARD_WIDTH, BOA
     }
 
     pub fn play_until_last(&mut self) -> u32 {
-        let mut boards_remaining = self.boards.len();
         let mut last_score = 0;
 
         for &draw in self.sequence.iter() {

@@ -55,7 +55,7 @@ impl<const READING_LENGTH: usize> Readings<READING_LENGTH> {
     }
 
     fn o2(&self) -> Reading<READING_LENGTH> {
-        let mut readings: Vec<Reading<READING_LENGTH>> = self.0.iter().copied().collect();
+        let mut readings: Vec<Reading<READING_LENGTH>> = self.0.to_vec();
         let mut temp: Vec<Reading<READING_LENGTH>> = Vec::new();
         let mut pos: usize = 0;
 
@@ -75,7 +75,7 @@ impl<const READING_LENGTH: usize> Readings<READING_LENGTH> {
     }
 
     fn co2(&self) -> Reading<READING_LENGTH> {
-        let mut readings: Vec<Reading<READING_LENGTH>> = self.0.iter().copied().collect();
+        let mut readings: Vec<Reading<READING_LENGTH>> = self.0.to_vec();
         let mut temp: Vec<Reading<READING_LENGTH>> = Vec::new();
         let mut pos: usize = 0;
 

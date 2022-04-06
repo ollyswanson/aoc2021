@@ -8,7 +8,7 @@ pub struct Paper(HashSet<(i32, i32)>);
 
 impl Paper {
     pub fn fold(&mut self, fold: Fold) {
-        let mut current = std::mem::take(&mut self.0);
+        let current = std::mem::take(&mut self.0);
 
         for (x, y) in current {
             let (x, y) = match fold {
