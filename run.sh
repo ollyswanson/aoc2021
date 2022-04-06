@@ -5,4 +5,4 @@ fi
 
 day=day$(printf "%02d" "$1")
 
-cargo run --bin "$day" < ./inputs/"$day".txt
+cargo run -r --bin "$day"
